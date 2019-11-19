@@ -1,7 +1,7 @@
 function tspgui()
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 NIND=50;		% Number of individuals
 MAXGEN=100;		% Maximum no. of generations
 NVAR=26;		% No. of variables
