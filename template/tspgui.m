@@ -56,7 +56,7 @@ data = load(['datasets/' datasets{1}]);
 x=data(:,1)/max([data(:,1);data(:,2)]);y=data(:,2)/max([data(:,1);data(:,2)]);
 NVAR=size(data,1);
 
-datasets
+datasets;
 
 % initialise the user interface
 fh = figure('Visible','off','Name','TSP Tool','Position',[0,0,1024,768]);
