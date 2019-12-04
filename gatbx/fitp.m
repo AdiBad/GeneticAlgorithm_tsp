@@ -29,19 +29,28 @@ prob = FitnV/sum(FitnV);
 cum_prob = cumsum(prob);
 rand_num = prob(ceil((Nind-1)*rand()))
 fitpop = [];
-j=1;
-for i=1:Nind
-    %If required number of individuals not selected, randomly restart 
-    %picking from crowd
-    
-    if(prob(i)>rand_num)  
-        fitpop(j)= i;
-        Nsel = Nsel - 1;   
-        j= j+1;
+
+j = 1;
+i = 1;
+
+while(Nsel ~= 0)
+    if(i ~= Nind)
+      if(prob(i)>rand_num)  
+          fitpop(j)= i;
+          Nsel = Nsel - 1;   
+          j= j+1;
+      end
+    else
+      rand_num = prob(ceil((Nind-1)*rand()))
+      i = 0;
     end
+    
+    i = i + 1;
+      
 end
 
-%Fill remaining spots randomly
+%{ 
+Fill remaining spots randomly
 if(Nsel ~= 0)
   for i = 1:Nsel
      fitpop(j) = ceil((Nsel-1)*rand()) ;
@@ -51,7 +60,7 @@ if(Nsel ~= 0)
      j = j + 1 ;
   end
 end  
-
+%}
 end
 
 
