@@ -61,6 +61,7 @@ function SelCh = select(SEL_F, Chrom, FitnV, GGAP, SUBPOP);
    for irun = 1:SUBPOP,
       FitnVSub = FitnV((irun-1)*Nind+1:irun*Nind);
       ChrIx=feval(SEL_F, FitnVSub, NSel)+(irun-1)*Nind;
+      ChrIx(ChrIx==0) = 1;
       SelCh=[SelCh; Chrom(ChrIx,:)];
    end
  
