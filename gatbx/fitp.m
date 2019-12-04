@@ -25,17 +25,43 @@ Makes list of individuals with fitness greater than a random number
     
 [Nind,ans] = size(FitnV);
 
-prob = FitnV/sum(FitnV);
-cum_prob = cumsum(prob);
-rand_num = prob(ceil((Nind-1)*rand()))
+fits(:,1) = FitnV;
+fits(:,2) = [1:length(FitnV)];
+
+%Convert fitness into probability of survival
+fits(:,1) = fits(:,1)/sum(fits(:,1));
+%Sort by decreasing order of probability
+fits = sortrows(fits,1);
+%Make cumulative sum for each probability
+fits(:,1) = cumsum(fits(:,1));
+
 fitpop = [];
 
 j = 1;
-i = 1;
+while(Nsel ~= 0)
+    %Calculate a random number before each individual is selected
+    rand_num = rand();
+    %Find out where this trial is "binned" in/nearest individual
+    for i = 1:length(fits(:,1))
+        if (fits(i,1) > rand_num)
+           %Assign index of selected individual
+           fitpop(j) = fits(i,2);
+           j = j + 1;
+           Nsel = Nsel - 1;  
+           break
+        else
+            continue
+        end
+    end
+    
+end
 
+end
+%{
 while(Nsel ~= 0)
     if(i ~= Nind)
-      if(prob(i)>rand_num)  
+      rand_num = rand();
+      if(cum_prob(i)>rand_num)  
           fitpop(j)= i;
           Nsel = Nsel - 1;   
           j= j+1;
@@ -48,19 +74,8 @@ while(Nsel ~= 0)
     i = i + 1;
       
 end
-
-%{ 
-Fill remaining spots randomly
-if(Nsel ~= 0)
-  for i = 1:Nsel
-     fitpop(j) = ceil((Nsel-1)*rand()) ;
-     if(fitpop(j) == 0)
-         fitpop(j) = ceil((Nsel-2)*rand());
-     end
-     j = j + 1 ;
-  end
-end  
 %}
-end
+
+
 
 
