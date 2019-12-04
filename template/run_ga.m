@@ -60,16 +60,17 @@ function run_ga(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR
             end          
         	%assign fitness values to entire population
         	FitnV=ranking(ObjV);
-        	%select individuals for breeding
-        	SelCh=select('sus', Chrom, FitnV, GGAP);
+            
+        	%select individuals for breeding -----------------------------
+        	SelCh=select('fitp', Chrom, FitnV, GGAP);
+            
         	%recombine individuals (crossover)
             SelCh = recombin(CROSSOVER,SelCh,PR_CROSS);
             SelCh=mutateTSP('inversion',SelCh,PR_MUT);
             %evaluate offspring, call objective function
         	ObjVSel = tspfun(SelCh,Dist);
             %reinsert offspring into population
-        	[Chrom ObjV]=reins(Chrom,SelCh,1,1,ObjV,ObjVSel);
-            
+        	[Chrom ObjV]=reins(Chrom,SelCh,1,1,ObjV,ObjVSel);        
             Chrom = tsp_ImprovePopulation(NIND, NVAR, Chrom,LOCALLOOP,Dist);
         	%increment generation counter
         	gen=gen+1;            
