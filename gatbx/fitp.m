@@ -41,9 +41,10 @@ j = 1;
 while(Nsel ~= 0)
     %Calculate a random number before each individual is selected
     rand_num = rand();
+    threshold = 0;
     %Find out where this trial is "binned" in/nearest individual
     for i = 1:length(fits(:,1))
-        if (fits(i,1) > rand_num)
+        if (fits(i,1) > rand_num & fits(i,1)>threshold)
            %Assign index of selected individual
            fitpop(j) = fits(i,2);
            j = j + 1;
