@@ -62,7 +62,7 @@ function run_ga(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR
         	FitnV=ranking(ObjV);
             
         	%select individuals for breeding -----------------------------
-        	SelCh=select('fitp', Chrom, FitnV, GGAP);
+        	SelCh=select('sus', Chrom, FitnV, GGAP);
             
         	%recombine individuals (crossover)
             SelCh = recombin(CROSSOVER,SelCh,PR_CROSS);
