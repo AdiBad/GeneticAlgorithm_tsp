@@ -22,11 +22,23 @@ while rndi(1)==rndi(2)
 end
 rndi = sort(rndi);
 
-NewChrom(rndi(1):rndi(2)) = NewChrom(rndi(2):-1:rndi(1));
+%Can choose between following mutation options:
+
+%1. Inverse entire subset between given points
+%NewChrom(rndi(1):rndi(2)) = NewChrom(rndi(2):-1:rndi(1));
+
+%2. Swap 2 random points together
 %buffer=NewChrom(rndi(1));
 %NewChrom(rndi(1))=NewChrom(rndi(2));
 %NewChrom(rndi(2))=buffer;
 
+%3. Insert a random point ahead of original position
+%NewChrom = [NewChrom(1:rndi(1)) NewChrom(rndi(2)) NewChrom(rndi(1)+1:rndi(2)-1) NewChrom(rndi(2)+1:end)];
+
+%4. Scramble values in subset
+inde = rndi(1):rndi(2);
+valz = NewChrom(inde);
+NewChrom(inde) = valz(randperm(length(inde)));
 
 if Representation==1
 	NewChrom=path2adj(NewChrom);

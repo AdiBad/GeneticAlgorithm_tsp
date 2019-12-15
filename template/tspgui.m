@@ -12,8 +12,10 @@ STOP_PERCENTAGE=.95;    % percentage of equal fitness individuals for stopping
 PR_CROSS=.95;     % probability of crossover
 PR_MUT=.05;       % probability of mutation
 LOCALLOOP=0;      % local loop removal
-%CROSSOVER = 'xalt_edges';  % default crossover operator
-CROSSOVER = 'path_circle';  % cycle path crossover operator
+CROSSOVER = 'xalt_edges';  % default crossover operator
+%CROSSOVER = 'path_circle';  % cycle path crossover operator
+%CROSSOVER = 'xovdp';  % double point crossover operator
+%CROSSOVER = 'xovsp';  % single point crossover operator
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -180,8 +182,8 @@ set(fh,'Visible','on');
         set(mutslider,'Visible','off');
         set(crossslider,'Visible','off');
         set(elitslider,'Visible','off');
-        %run_ga(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, LOCALLOOP, ah1, ah2, ah3);
-        run_ga_path(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, LOCALLOOP, ah1, ah2, ah3);
+        run_ga(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, LOCALLOOP, ah1, ah2, ah3);
+        %run_ga_path(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, LOCALLOOP, ah1, ah2, ah3);
         
         end_run();
     end

@@ -31,7 +31,13 @@ function run_ga(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR
         % initialize population
         Chrom=zeros(NIND,NVAR);
         for row=1:NIND
-        	Chrom(row,:)=path2adj(randperm(NVAR));
+            %binary representation
+        	%Chrom(row,:) = crtbp(1,NVAR);
+            
+            %Adjacency representation
+            Chrom(row,:)=path2adj(randperm(NVAR));
+            
+            %Path representation
             %Chrom(row,:)=randperm(NVAR);
         end
         gen=0;
@@ -68,11 +74,17 @@ function run_ga(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR
             SelCh = recombin(CROSSOVER,SelCh,PR_CROSS);
             SelCh=mutateTSP('inversion',SelCh,PR_MUT);
             %evaluate offspring, call objective function
-        	ObjVSel = tspfun(SelCh,Dist);
+        	SelCh(SelCh == 0) = 1;
+            ObjVSel = tspfun(SelCh,Dist);
             %reinsert offspring into population
         	[Chrom ObjV]=reins(Chrom,SelCh,1,1,ObjV,ObjVSel);        
             Chrom = tsp_ImprovePopulation(NIND, NVAR, Chrom,LOCALLOOP,Dist);
         	%increment generation counter
         	gen=gen+1;            
         end
+end
+
+function d = b2d(b)
+    M = reshape([b{:}], length(b), []);
+	d = [128, 64, 32, 16, 8, 4, 2, 1] * M
 end
