@@ -31,14 +31,13 @@ function run_ga(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR
         % initialize population
         Chrom=zeros(NIND,NVAR);
         for row=1:NIND
-            %binary representation
-        	%Chrom(row,:) = crtbp(1,NVAR);
             
             %Adjacency representation
             Chrom(row,:)=path2adj(randperm(NVAR));
             
             %Path representation
             %Chrom(row,:)=randperm(NVAR);
+            
         end
         gen=0;
         % number of individuals of equal fitness needed to stop
@@ -60,7 +59,8 @@ function run_ga(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR
             end
             
             visualizeTSP(x,y,adj2path(Chrom(t,:)), minimum, ah1, gen, best, mean_fits, worst, ah2, ObjV, NIND, ah3);
-
+            
+            %TERMINATING CONDITION GIVEN HERE:
             if (sObjV(stopN)-sObjV(1) <= 1e-15)
                   break;
             end          
