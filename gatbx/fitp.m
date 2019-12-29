@@ -58,25 +58,3 @@ while(Nsel ~= 0)
 end
 
 end
-%{
-while(Nsel ~= 0)
-    if(i ~= Nind)
-      rand_num = rand();
-      if(cum_prob(i)>rand_num)  
-          fitpop(j)= i;
-          Nsel = Nsel - 1;   
-          j= j+1;
-      end
-    else
-      rand_num = prob(ceil((Nind-1)*rand()))
-      i = 0;
-    end
-    
-    i = i + 1;
-      
-end
-%}
-
-
-
-
