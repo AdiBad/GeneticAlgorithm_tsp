@@ -1,25 +1,26 @@
+
 %%
 %Hyperparameters
 clear all;
 close all;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-NIND=50;		% Number of individuals
-MAXGEN=100;		% Maximum no. of generations
+NIND=50;        % Number of individuals
+MAXGEN=100;     % Maximum no. of generations
 DEADLINE=0.4;     % Seconds of available computational time
-NVAR=26;		% No. of variables
-PRECI=1;		% Precision of variables
+NVAR=26;        % No. of variables
+PRECI=1;        % Precision of variables
 ELITIST=0.05;    % percentage of the elite population
-GGAP=1-ELITIST;		% Generation gap
+GGAP=1-ELITIST;     % Generation gap
 STOP_PERCENTAGE=.95;    % percentage of equal fitness individuals for stopping
 PR_CROSS=.95;     % probability of crossover 
 PR_MUT=.05;       % probability of mutation
 LOCALLOOP=0;      % local loop removal
-CROSSOVER = 'xalt_edges';  % default crossover operator
+CROSSOVER = 'path_circle';  % default crossover operator
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
 % load the data sets
 %datasetslist = dir('datasets/');
-datasetslist = dir('C:\Users\Aditya\Desktop\H02D1A_GeneticAlgorithmsAndEvolutionaryComputing\Project\GeneticAlgorithm_tsp\TSPBenchmark');
+datasetslist = dir('C:\Users\r0768685\Downloads\GeneticAlgorithm_tsp-20200103T160235Z-001\GeneticAlgorithm_tsp\TSPBenchmark');
 datasets=cell( size(datasetslist,1)-2,1);datasets=cell( size(datasetslist,1)-2 ,1);
 
 for i=1:size(datasets,1);
@@ -42,7 +43,7 @@ title('Histogram');
 % Perform runs over the set of parameters and take final answer and mean
 % values over time.
 
-samples = 3;
+samples = 1;
 i=1;
 % figure(3);
 maxgen = [75 550 850];
@@ -50,26 +51,28 @@ pop = [125 250 650];
 
 x_l = zeros(12,1);
 y_l = zeros(12,1);
+%CROSSOVER = "cross_edrec";
 
-for datasetnumber=3:5
+for datasetnumber=1:5
     % start with first dataset
-    data = load(['C:\Users\Aditya\Desktop\H02D1A_GeneticAlgorithmsAndEvolutionaryComputing\Project\GeneticAlgorithm_tsp\TSPBenchmark\' datasets{datasetnumber}]);
+    data = load(['C:\Users\r0768685\Downloads\GeneticAlgorithm_tsp-20200103T160235Z-001\GeneticAlgorithm_tsp\TSPBenchmark\' datasets{datasetnumber}]);
     x=data(:,1)/max([data(:,1);data(:,2)]);y=data(:,2)/max([data(:,1);data(:,2)]);
     NVAR=size(data,1);
-    for model = 1:3
+    append_xvalz = [];
+    append_yvalz = [];
+    for model = 3:3
         k=i;
         MAXGEN = maxgen(model);
         NIND= pop(model);
         
-        PR_MUT = 0.1;
-        PR_CROSS = 0.85;
+        PR_MUT = 0.35;
+        PR_CROSS = 0.95;
         
         start = tic;
         for j=1 : samples
+            j
             start = tic;
             output(j,i) = my_run_ga_benchmark(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, LOCALLOOP, ah1, ah2, ah3);
-%             disp(toc(start));
-%             disp(j);
             params(1,j) = PR_CROSS;
             params(2,j) = toc(start);
         end
@@ -81,5 +84,8 @@ for datasetnumber=3:5
         pause(0.1);
         x_l(i) = mean(output(:,i-1));
         y_l(i) = mean(params(2,j));
+        
+        append_xvalz=[append_xvalz XX]
+        append_yvalz=[append_yvalz YY];
     end   
 end

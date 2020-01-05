@@ -1,3 +1,4 @@
+%%
 function output = my_run_ga_benchmark(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, LOCALLOOP, ah1, ah2, ah3)
 % usage: run_ga(x, y, 
 %               NIND, MAXGEN, NVAR, 
@@ -79,7 +80,7 @@ GGAP = 1 - ELITIST;
         	%recombine individuals (crossover)
             SelCh = recombin(CROSSOVER,SelCh,PR_CROSS);
             
-            SelCh=mutateTSP('inversion',SelCh,PR_MUT,1);
+            SelCh=mutateTSP_path('inversion',SelCh,PR_MUT,3);
             %evaluate offspring, call objective function
         	SelCh(SelCh == 0) = 1;
             ObjVSel = tspfun(SelCh,Dist);

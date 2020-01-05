@@ -1,17 +1,11 @@
-%usage:edge_recomb(selch)
+%% usage:edge_recomb(selch)
 %selch is a matrix of individual chromosomes that represent adjacency list
 %of cities
 %This function performs edge crossover for 2 rows of a matrix and assigns
 %the offspring to the odd row, loop over all the rows
 
-function offspring = cross_edrec(selch)
-l_a = length(selch);
-
-%We will iterate over even rows only
-%if(mod(l_a,2) ~=0)
-%    l_a = l_a-1;
-%end
-l_b = size(selch,2);
+function offspring = cross_edrec(selch,~)
+[l_a l_b ]= size(selch);
 
 offspring = selch;
 for rows = 1:l_a-1

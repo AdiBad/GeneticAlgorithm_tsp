@@ -76,7 +76,7 @@ function output = run_ga_edge_recomb(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PER
             
             SelCh = cross_edrec(SelCh);
             
-            SelCh=mutateTSP('inversion',SelCh,PR_MUT,1);
+            SelCh=mutateTSP_path('inversion',SelCh,PR_MUT);
             %evaluate offspring, call objective function
         	SelCh(SelCh == 0) = 1;
             ObjVSel = tspfun(SelCh,Dist);

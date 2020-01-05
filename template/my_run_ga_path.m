@@ -1,4 +1,4 @@
-function output =  my_run_ga_path(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, LOCALLOOP, ah1, ah2, ah3)
+function output =  my_run_ga_path(cas,x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, LOCALLOOP, ah1, ah2, ah3)
 % usage: run_ga(x, y, 
 %               NIND, MAXGEN, NVAR, 
 %               ELITIST, STOP_PERCENTAGE, 
@@ -16,7 +16,7 @@ function output =  my_run_ga_path(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCEN
 % CROSSOVER: the crossover operator
 % calculate distance matrix between each pair of cities
 % ah1, ah2, ah3: axes handles to visualise tsp
-{NIND MAXGEN NVAR ELITIST STOP_PERCENTAGE PR_CROSS PR_MUT CROSSOVER LOCALLOOP}
+{NIND MAXGEN NVAR ELITIST STOP_PERCENTAGE PR_CROSS PR_MUT CROSSOVER LOCALLOOP};
 
 
         GGAP = 1 - ELITIST;
@@ -53,7 +53,7 @@ function output =  my_run_ga_path(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCEN
                 end
             end
             
-           % visualizeTSP(x,y,Chrom(t,:), minimum, ah1, gen, best, mean_fits, worst, ah2, ObjV, NIND, ah3);
+           %visualizeTSP(x,y,Chrom(t,:), minimum, ah1, gen, best, mean_fits, worst, ah2, ObjV, NIND, ah3);
 
             if (sObjV(stopN)-sObjV(1) <= 1e-15)
                   break;
@@ -64,7 +64,8 @@ function output =  my_run_ga_path(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCEN
         	SelCh=select('fitp', Chrom, FitnV, GGAP);
         	%recombine individuals (crossover)
             SelCh = recombin(CROSSOVER,SelCh,PR_CROSS);
-            SelCh=mutateTSP_path('inversion',SelCh,PR_MUT);
+           % disp('nowwwwwwwwwwwwwwwwwwwwwwwww');
+            SelCh=mutateTSP_path('inversion',SelCh,PR_MUT,cas);
             %evaluate offspring, call objective function
         	ObjVSel = tspfun_path(SelCh,Dist);
             %reinsert offspring into population
@@ -72,7 +73,7 @@ function output =  my_run_ga_path(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCEN
             
             Chrom = tsp_ImprovePopulation_path(NIND, NVAR, Chrom,LOCALLOOP,Dist);
         	%increment generation counter
-        	gen=gen+1;            
+        	gen=gen+1;              
         end
         output=best(gen-1);
 end
